@@ -3,7 +3,7 @@
 	Plugin Name: WP-Orphanage
 	Plugin URI: http://xentek.net/code/wordpress/plugins/wp-orphanage/
 	Description: Plugin to promote users with no roles set (the orphans) to the Subscriber role. Their role is upgraded when they login. Orphans are created when using the Shared User Table approach to tying wordpress sites together (and possibly when integrating bbPress into a WP site).
-	Version: 0.4b
+	Version: 0.5
 	Author: Eric Marden
 	Author URI: http://xentek.net/
 
