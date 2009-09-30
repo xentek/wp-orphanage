@@ -3,7 +3,7 @@
 	Plugin Name: WP-Orphanage
 	Plugin URI: http://xentek.net/code/wordpress/plugins/wp-orphanage/
 	Description: Plugin to promote users with no roles set (the orphans) to the Subscriber role. Their role is upgraded when they login. Orphans are created when using the Shared User Table approach to tying wordpress sites together (and possibly when integrating bbPress into a WP site).
-	Version: 0.5
+	Version: 1.0
 	Author: Eric Marden
 	Author URI: http://xentek.net/
 
@@ -23,10 +23,21 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+register_activation_hook(__FILE__, 'wporphanage_activate');
 add_action('init','wporphanage_load_translation');
 add_action('admin_menu','add_wporphanage_options_page');
 add_action('wp_login','adopt_this_orphan');
 add_action('load-users.php','adopt_all_orphans');
+
+function wporphanage_activate()
+{
+	if (!get_option('wporphanage_role') && get_option('default_role'))
+	{
+		update_option('wporphanage_role', get_option('default_role'));
+	} else {
+		update_option('wporphanage_role', 'subscriber');
+	}
+}
 
 function wporphanage_load_translation()
 {
@@ -37,7 +48,7 @@ function add_wporphanage_options_page()
 {
 	if (function_exists('add_options_page'))
 	{
-		add_options_page('options-general.php', 'WP Orphanage', 'WP Orphanage', 10, 'wp-orphanage', WP_PLUGIN_DIR.'/'.dirname(__FILE__) . '/wp-orphanage-options.php');
+		add_options_page('WP Orphanage', 'WP Orphanage', 10, dirname(__FILE__) . '/wp-orphanage-options.php');
 	}
 }
 
@@ -48,7 +59,7 @@ function adopt_this_orphan()
 
 	if ( !current_user_can('read') ) {
 		$user = new WP_User($user_ID);
-		$user->set_role('subscriber');
+		$user->set_role(get_option('wporphanage_role'));
 	}
 }
 
@@ -59,7 +70,7 @@ function adopt_all_orphans()
 	foreach ( $wp_user_search->get_results() as $userid ) {
 		$user = new WP_User($userid);
 		if ( !$user->has_cap('read') ) {
-			$user->set_role('subscriber');
+			$user->set_role(get_option('wporphanage_role'));
 		}
 	}
 }

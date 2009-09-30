@@ -6,11 +6,11 @@ Requires at least: 2.5
 Tested up to: 2.9
 Stable tag: trunk
 
-Plugin to promote users with no roles set (the orphans) to the Subscriber role. Their role is upgraded when they login.
+Plugin to promote users with no roles set (the orphans) to the role of your choosing. Their role is upgraded when they login.
 
 == Description ==
 
-Users who have not been assigned any Roles or Capabilities are called 'orphans'. When using the shared users table trick to link up multiple WordPress installations, users who register on one of your blogs, are not given any privileges on the other blogs in the network. WP-Orphanage is a plugin that automatically adopts your orphan users by promoting them to the 'subscriber' role with the 'read' capability.
+Users who have not been assigned any Roles or Capabilities are called 'orphans'. When using the [shared users table trick](http://codex.wordpress.org/Editing_wp-config.php#Custom_User_and_Usermeta_Tables) to link up multiple WordPress installations, users who register on one of your blogs, are not given any privileges on the other blogs in the network. WP-Orphanage is a plugin that automatically adopts your orphan users by promoting them to the role of your choosing. By default it is the same as the default role set in the WP Options.
 
 It does it in two ways:
 
@@ -23,15 +23,19 @@ By taking a just in time approach, this plugin will not add any noticeable overh
 
 1. Download the wp-orphanage.zip file, unzip and upload the whole directory to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. As an admin you can visit the Users page to automatically upgrade all orphan users of that blog to the subscriber role. Users who login before you do that will also get the same treatment (but only for their account).
+1. Edit the plugin options to set the role you would like users to be promoted to.
+1. As an admin you can visit the Users page to automatically upgrade all orphan users of that blog to that role. Users who login before you do that will also get the same treatment (but only for their account).
 
 == Frequently Asked Questions ==
 
 = Why Would I Want This? =
 
-If you are using the ``CUSTOM_USER_TABLE`` and ``CUSTOM_USER_META_TABLE`` in your wp-config.php, you're probably going to want this.
+If you are using the ``CUSTOM_USER_TABLE`` and ``CUSTOM_USER_META_TABLE`` in your [wp-config.php](http://codex.wordpress.org/Editing_wp-config.php#Custom_User_and_Usermeta_Tables), you're probably going to want this.
 
 == Changelog ==
+
+=1.0=
+* Added an options page so that the admin can set the Role orphan users get when they are adopted. By default it will be the same as the default role for new registrations on that blog, but can be set to something different, if you choose.
 
 = 0.5 = 
 * Added a proper readme.txt
