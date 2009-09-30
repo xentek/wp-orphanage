@@ -23,28 +23,44 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+add_action('init','wporphanage_load_translation');
+add_action('admin_menu','add_wporphanage_options_page');
+add_action('wp_login','adopt_this_orphan');
+add_action('load-users.php','adopt_all_orphans');
 
-	add_action('wp_login', 'adopt_this_orphan');
-	add_action('load-users.php', 'adopt_all_orphans');
+function wporphanage_load_translation()
+{
+	load_plugin_textdomain('wporphanage', WP_PLUGIN_DIR.'/'.dirname(plugin_basename(__FILE__)));
+}
 
-	function adopt_this_orphan() {
-		global $user_ID;
-		      get_currentuserinfo();
-		
-			if ( !current_user_can('read') ) {
-				$user = new WP_User($user_ID);
-				$user->set_role('subscriber');
-			}
+function add_wporphanage_options_page()
+{
+	if (function_exists('add_options_page'))
+	{
+		add_options_page('options-general.php', 'WP Orphanage', 'WP Orphanage', 10, 'wp-orphanage', WP_PLUGIN_DIR.'/'.dirname(__FILE__) . '/wp-orphanage-options.php');
+	}
+}
+
+function adopt_this_orphan()
+{
+	global $user_ID;
+	get_currentuserinfo();
+
+	if ( !current_user_can('read') ) {
+		$user = new WP_User($user_ID);
+		$user->set_role('subscriber');
+	}
+}
+
+function adopt_all_orphans()
+{
+	// Query the users
+	$wp_user_search = new WP_User_Search();
+	foreach ( $wp_user_search->get_results() as $userid ) {
+		$user = new WP_User($userid);
+		if ( !$user->has_cap('read') ) {
+			$user->set_role('subscriber');
 		}
-		
-		function adopt_all_orphans() {
-			// Query the users
-			$wp_user_search = new WP_User_Search();
-			foreach ( $wp_user_search->get_results() as $userid ) {
-				$user = new WP_User($userid);
-				if ( !$user->has_cap('read') ) {
-					$user->set_role('subscriber');
-				}
-			}
-		}
+	}
+}
 ?>
