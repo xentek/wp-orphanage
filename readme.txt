@@ -10,7 +10,7 @@ Plugin to promote users with no roles set (the orphans) to the role of your choo
 
 == Description ==
 
-Users who have not been assigned any Roles or Capabilities are called 'orphans'. When using the [shared users table trick](http://codex.wordpress.org/Editing_wp-config.php#Custom_User_and_Usermeta_Tables) to link up multiple WordPress installations, users who register on one of your blogs, are not given any privileges on the other blogs in the network. WP-Orphanage is a plugin that automatically adopts your orphan users by promoting them to the role of your choosing. By default it is the same as the default role set in the WP Options.
+Users who have not been assigned any Roles or Capabilities are called 'orphans'. When using the [shared users table trick](http://xentek.net/articles/528/implementing-the-wordpress-shared-users-table-trick/) to link up multiple WordPress installations, users who register on one of your blogs, are not given any privileges on the other blogs in the network. WP-Orphanage is a plugin that automatically adopts your orphan users by promoting them to the role of your choosing. By default it is the same as the default role set in the WP Options.
 
 It does it in two ways:
 
@@ -32,9 +32,13 @@ By taking a just in time approach, this plugin will not add any noticeable overh
 
 If you are using the ``CUSTOM_USER_TABLE`` and ``CUSTOM_USER_META_TABLE`` in your [wp-config.php](http://codex.wordpress.org/Editing_wp-config.php#Custom_User_and_Usermeta_Tables), you're probably going to want this.
 
+== Screenshots ==
+
+1. WP-Orphanage Options Screen (which was added in v1.0)
+
 == Changelog ==
 
-=1.0=
+= 1.0 =
 * Added an options page so that the admin can set the Role orphan users get when they are adopted. By default it will be the same as the default role for new registrations on that blog, but can be set to something different, if you choose.
 
 = 0.5 = 
