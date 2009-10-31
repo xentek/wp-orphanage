@@ -1,5 +1,5 @@
 <?php
-$roles = get_option('wp_user_roles');
+$roles = wporphanage_get_roles();
 if ( !empty($_POST ) ) :
 	check_admin_referer('update-options');
 	update_option('wporphanage_role',$_POST['wporphanage_role']);

@@ -1,6 +1,6 @@
 === WP-Orphanage ===
 Contributors: xenlab
-Donate link: http://xentek.net/code/wordpress/plugins/wp-orphanage/
+Donate link: http://j.mp/donate-to-xentek
 Tags: users, shared user table, CUSTOM_USER_TABLE, CUSTOM_USER_META_TABLE
 Requires at least: 2.5
 Tested up to: 2.9
@@ -37,6 +37,9 @@ If you are using the ``CUSTOM_USER_TABLE`` and ``CUSTOM_USER_META_TABLE`` in you
 1. WP-Orphanage Options Screen (which was added in v1.0)
 
 == Changelog ==
+
+= 1.0.1 =
+* Bug Fix: Options page only worked when your table prefix was 'wp_'. Dynamically retrieves the table prefix now, and should work for all set-ups.
 
 = 1.0 =
 * Added an options page so that the admin can set the Role orphan users get when they are adopted. By default it will be the same as the default role for new registrations on that blog, but can be set to something different, if you choose.
