@@ -3,7 +3,7 @@
 	Plugin Name: WP-Orphanage
 	Plugin URI: http://xentek.net/code/wordpress/plugins/wp-orphanage/
 	Description: Plugin to promote users with no roles set (the orphans) to the Subscriber role. Their role is upgraded when they login. Orphans are created when using the Shared User Table approach to tying wordpress sites together (and possibly when integrating bbPress into a WP site).
-	Version: 1.0.1
+	Version: 1.1
 	Author: Eric Marden
 	Author URI: http://xentek.net/
 
@@ -31,12 +31,11 @@ add_action('load-users.php','adopt_all_orphans');
 
 function wporphanage_activate()
 {
-	if (!get_option('wporphanage_role') && get_option('default_role'))
-	{
+	if (!get_option('wporphanage_role') && get_option('default_role')):
 		update_option('wporphanage_role', get_option('default_role'));
-	} else {
+	else:
 		update_option('wporphanage_role', 'subscriber');
-	}
+	endif;
 }
 
 function wporphanage_load_translation()
@@ -46,10 +45,9 @@ function wporphanage_load_translation()
 
 function add_wporphanage_options_page()
 {
-	if (function_exists('add_options_page'))
-	{
+	if (function_exists('add_options_page')):
 		add_options_page('WP Orphanage', 'WP Orphanage', 10, dirname(__FILE__) . '/wp-orphanage-options.php');
-	}
+	endif;
 }
 
 function adopt_this_orphan()
@@ -57,28 +55,28 @@ function adopt_this_orphan()
 	global $user_ID;
 	get_currentuserinfo();
 
-	if ( !current_user_can('read') ) {
+	if ( !current_user_can('read') ):
 		$user = new WP_User($user_ID);
 		$user->set_role(get_option('wporphanage_role'));
-	}
+	endif;
 }
 
 function adopt_all_orphans()
 {
 	// Query the users
 	$wp_user_search = new WP_User_Search();
-	foreach ( $wp_user_search->get_results() as $userid ) {
+	foreach ( $wp_user_search->get_results() as $userid ):
 		$user = new WP_User($userid);
-		if ( !$user->has_cap('read') ) {
+		if ( !$user->has_cap('read') ):
 			$user->set_role(get_option('wporphanage_role'));
-		}
-	}
+		endif;
+	endforeach;
 }
 
 function wporphanage_get_roles()
 {
 	global $wpdb;
-	$option = $wpdb->table_prefix . 'user_roles';
+	$option = $wpdb->prefix . 'user_roles';
 	return get_option($option);
 }
 ?>

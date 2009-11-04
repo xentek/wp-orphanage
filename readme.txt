@@ -38,6 +38,9 @@ If you are using the ``CUSTOM_USER_TABLE`` and ``CUSTOM_USER_META_TABLE`` in you
 
 == Changelog ==
 
+= 1.1 =
+* Bug Fix: Used the wrong property from $wpdb to get the table prefix. This release fixes that bug and cleans up the code some. Thanks to [Vince](http://www.alphak.net/) for helping track this down.
+
 = 1.0.1 =
 * Bug Fix: Options page only worked when your table prefix was 'wp_'. Dynamically retrieves the table prefix now, and should work for all set-ups.
 
